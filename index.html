@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Escape Room</title>
+	<meta charset="utf-8"/>
+	<link href="images/favicon.png" rel="icon" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link href='http://fonts.googleapis.com/css?family=Reenie+Beanie|Orbitron:500' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div id="success" class="pageContainer" style="display: none;">
+		<div class="introContainer">
+			<img src="images/qwerty-200x200.png"/>
+		</div>
+		<div class="infoContainer">
+			<h1>Escape Game</h1>
+
+			<h2 class="bannersuccess">Success!</h2>
+
+			<p class="instructions">Qwerty has found his ship and returned home. He thanks you for your help.</p>
+
+			<h3>Time to Complete: <span id="finaltimer2"></span><span id="finaltimer3"></span>:<span id="finaltimer4"></span><span id="finaltimer5"></span></h3>
+		</div>
+	</div>
+	<div id="failure" class="pageContainer" style="display: none;">
+		<div class="introContainer">
+			<img src="images/qwerty-200x200.png"/>
+		</div>
+		<div class="infoContainer">
+			<h1>Escape Game</h1>
+
+			<h2 class="bannerfailure">Failure!</h2>
+
+			<p class="instructions">Qwerty has been sent to Area 51.</p>
+		</div>
+	</div>
+	<div id="welcome" class="pageContainer">
+		<div class="introContainer">
+			<img src="images/qwerty-200x200.png"/>
+		</div>
+		<div class="infoContainer">
+			<h1>Escape Game</h1>
+
+			<h3>Can you help Qwerty escape in time?</h3>
+
+			<p class="instructions">Qwerty crash landed on earth and has been captured by the humans.  You have 20 minutes to help him uncover clues to unlock the warehouse door holding his spaceship so he can return home.</p>
+
+			<button id="startbutton" class="startbutton pulseBox" style="display: none;">Start Game</button>
+			<h2 id="loadingnotice" class="typetext">Loading...</h2>
+		</div>
+
+		<div class="controlsContainer">
+			<h2>Controls</h2>
+			<div class="keyboard">
+				<div class="row">
+					<button class="key" id="Q">Q</button>
+					<button class="key" id="W">W</button>
+					<button class="key" id="E">E</button>
+					<button class="key" id="R">R</button>
+				</div>
+				<div class="row">
+					<button class="key" id="A">A</button>
+					<button class="key" id="S">S</button>
+					<button class="key" id="D">D</button>
+					<button class="key" id="F">F</button>
+				</div>
+			</div>
+			<div class="keyinfo">
+			</div>
+			<div class="mouseinfo">
+				<img src="images/mouse-32x32.png"/>
+				Click to trigger items
+			</div>
+		</div>
+	</div>
+
+	<div id="container"></div>
+
+	<div id="footer">
+		<span id="copyright">&copy; ASP 2014</span>
+
+		<div id="timer" class="ingame">
+			<div class="letter" id="timer5">-</div>
+			<div class="letter" id="timer4">-</div>
+			<div class="colon">:</div>
+			<div class="letter" id="timer3">-</div>
+			<div class="letter" id="timer2">-</div>
+		</div>
+
+		<div id="commands" class="ingame">
+			<a id="commandControls" href="javascript: void(0);">Controls</a>
+		</div>
+	</div>
+
+	<div id="dimmer"></div>
+	<div id="modal">
+		<div id="modalContainer">
+			<div id="modalClose"><a href="javascript: void(0);">X</a></div>
+			<div id="modalContent"></div>
+		</div>
+	</div>
+
+
+	<!-- script below -->
+
+	<script src="js/vendor/jquery-1.11.2.min.js"></script>
+	<script src="js/vendor/three.min.js"></script>
+	<script src="js/vendor/threex.keyboardstate.js"></script>
+	<script src="js/vendor/md5.js"></script>
+
+	<script src="js/script.js"></script>
+
+
+
+	<!-- templates to clone below -->
+
+	<div id="templates" style="display: none">
+		<div id="loginLockedTemplate" class="modalForm">
+			<div class="inlineform">
+				<div class="formrow">
+					<label for="username">Username</label>
+					<input type="text" disabled value="admin"/>
+				</div>
+				<div class="formrow">
+					<label for="password">Password</label>
+					<input type="password" class="password"/>
+					<span class="help left">[A-Za-z]</span>
+				</div>
+			</div>
+			<div class="formrow">
+				<div class="textcenter">
+					<button class="cancel">Cancel</button>
+					<button class="ok">Login</button>
+				</div>
+			</div>
+			<div class="formrow">
+				<div class="msg"></div>
+			</div>
+		</div>
+
+		<div id="loginUnlockedTemplate" class="modalForm">
+			<div class="clueContainer textselect">
+				<h2>T = 4</h2>
+			</div>
+		</div>
+
+		<div id="chestLockedTemplate" class="modalForm">
+			<div class="lockContainer">
+				<div class="lockDigitContainer digit0">
+					<div class="lockDigit lockDigitPrev">9</div>
+					<div class="lockDigit lockDigitCur">0</div>
+					<div class="lockDigit lockDigitNext">1</div>
+				</div>
+				<div class="lockDigitContainer digit1">
+					<div class="lockDigit lockDigitPrev">9</div>
+					<div class="lockDigit lockDigitCur">0</div>
+					<div class="lockDigit lockDigitNext">1</div>
+				</div>
+				<div class="lockDigitContainer digit2">
+					<div class="lockDigit lockDigitPrev">9</div>
+					<div class="lockDigit lockDigitCur">0</div>
+					<div class="lockDigit lockDigitNext">1</div>
+				</div>
+				<div class="lockDigitContainer digit3">
+					<div class="lockDigit lockDigitPrev">9</div>
+					<div class="lockDigit lockDigitCur">0</div>
+					<div class="lockDigit lockDigitNext">1</div>
+				</div>
+			</div>
+			<div class="formrow">
+				<div class="textcenter">
+					<button class="cancel">Cancel</button>
+					<button class="ok">Unlock</button>
+				</div>
+			</div>
+			<div class="formrow">
+				<div class="msg"></div>
+			</div>
+		</div>
+
+		<div id="chestUnlockedTemplate" class="modalForm">
+			<div class="oldpaperContainer">
+				<div class="oldpaper textselect strikethrough">
+					<h2>R = 2</h2>
+				</div>
+			</div>
+		</div>
+
+		<div id="bookViewTemplate">
+			<div class="bookViewContainer">
+				<div class="book">
+					<div class="paper">
+						<div class="paperCorner">
+							<div class="paperCornerClip"></div>
+							<div class="paperCornerBackground"></div>
+						</div>
+						<div class="paperContent">
+							<div class="paperContentPage textselect">
+								<p>4 16 6 19 19</p>
+								<p>4 16 9 3 5 23 10 20</p>
+								<p>4 1 9</p>
+								<p>16 3 10 20 6 19 20</p>
+								<p>23 10 20</p>
+								<p>5 19 2 19 10 4 25</p>
+								<p>5 15 26</p>
+								<p class="bigscribble">To Escape</p>
+							</div>
+							<div class="paperContentPage textselect">
+								<p>Notes:</p>
+								<p class="solvedgrate scribble hidden">A = 23</p>
+								<p class="solvedchest scribble hidden strikethrough">R = 2</p>
+								<p class="solvedlogin scribble hidden">T = 4</p>
+								<p class="solvedallclues bigscribble hidden">3/3 found</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="doorViewTemplate" class="modalForm">
+			<div class="keypadContainer">
+				<div class="keypadDigit keypadDigit1">1</div>
+				<div class="keypadDigit keypadDigit2">2</div>
+				<div class="keypadDigit keypadDigit3">3</div>
+				<div class="keypadDigit keypadDigit4">4</div>
+				<div class="keypadDigit keypadDigit5">5</div>
+				<div class="keypadDigit keypadDigit6">6</div>
+				<div class="keypadDigit keypadDigit7">7</div>
+				<div class="keypadDigit keypadDigit8">8</div>
+				<div class="keypadDigit keypadDigit9">9</div>
+				<div class="keypadDigit keypadDigita">*</div>
+				<div class="keypadDigit keypadDigit0">0</div>
+				<div class="keypadDigit keypadDigitp">#</div>
+			</div>
+			<div class="formrow">
+				<div class="msg"></div>
+			</div>
+		</div>
+
+		<div id="grateViewTemplate">
+			<div class="stickyContainer">
+				<div class="sticky textselect">
+					<h2>A = 23</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
